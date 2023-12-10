@@ -2,9 +2,7 @@ package queue
 
 const (
 	// Crons
-	TOPIC_CRONJOB_STATUS = "cronjob.status"
-
-	// Universe Endpoint
+	TOPIC_CRONJOB_STATUS                = "cronjob.status"
 	TOPIC_CRONJOB_UNIVERSE_ANCESTRY     = "cronjob.universe.ancestry"
 	TOPIC_CRONJOB_UNIVERSE_BLOODLINE    = "cronjob.universe.bloodline"
 	TOPIC_CRONJOB_UNIVERSE_CATEGORY     = "cronjob.universe.category"
