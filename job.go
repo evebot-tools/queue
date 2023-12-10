@@ -1,32 +1,47 @@
 package queue
 
 import (
-	"encoding/json"
-	"github.com/rs/zerolog/log"
 	"time"
 )
 
 type CronJob struct {
-	Timestamp time.Time `json:"timestamp"`
-	Action    string    `json:"action"`
-	Enabled   bool      `json:"enabled"`
-	TTL       int       `json:"interval"`
+	Timestamp  time.Time `json:"timestamp"`
+	Action     string    `json:"action"`
+	Enabled    bool      `json:"enabled"`
+	TTL        int       `json:"interval"`
+	StringData *string   `json:"stringData,omitempty"`
+	IntData    *int      `json:"intData,omitempty"`
 }
 
 func NewCronJob(action string, enabled bool, ttl int) *CronJob {
 	return &CronJob{
-		Timestamp: time.Now(),
-		Action:    action,
-		Enabled:   enabled,
-		TTL:       ttl,
+		Timestamp:  time.Now(),
+		Action:     action,
+		Enabled:    enabled,
+		TTL:        ttl,
+		StringData: nil,
+		IntData:    nil,
 	}
 }
 
-func (c *CronJob) Encode() []byte {
-	payload, err := json.Marshal(c)
-	if err != nil {
-		log.Err(err).Msg("failed to marshal cronjob")
-		return nil
+func NewCronJobWithStringData(action string, enabled bool, ttl int, data string) *CronJob {
+	return &CronJob{
+		Timestamp:  time.Now(),
+		Action:     action,
+		Enabled:    enabled,
+		TTL:        ttl,
+		StringData: &data,
+		IntData:    nil,
 	}
-	return payload
+}
+
+func NewCronJobWithIntData(action string, enabled bool, ttl int, data int) *CronJob {
+	return &CronJob{
+		Timestamp:  time.Now(),
+		Action:     action,
+		Enabled:    enabled,
+		TTL:        ttl,
+		StringData: nil,
+		IntData:    &data,
+	}
 }
